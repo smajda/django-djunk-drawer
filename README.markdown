@@ -4,7 +4,7 @@ Much of this is a collection of random snippets from djangosnippets.org or stack
 
 Install:
 
-    pip install -e git+git@github.com:smajda/djunk-drawer.git@master#egg=djunk_drawer
+    pip install -e git+git@github.com:smajda/django-djunk-drawer.git@master#egg=djunk_drawer
 
 In settings.py:
 

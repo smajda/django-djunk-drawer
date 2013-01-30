@@ -1,0 +1,18 @@
+<div class="file-upload">
+
+    {% if value %}
+    <div class="current">
+        <a href="{{ value.url }}" target="_blank" title="{{ value.name }}">Download File</a>
+        <label for="{{ name }}-clear_id">Clear: 
+            <input type="checkbox" name="{{ name }}-clear" id="{{ name }}-clear_id">
+        </label>
+    </div>
+    {% endif %}
+
+    <div class="file">
+        <label for="{{ name }}">{% if value %}Change: {% endif %}
+            <input type="file" name="{{ name }}" id="{{ attrs.id }}">
+        </label>
+    </div>
+
+</div>

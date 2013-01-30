@@ -1,0 +1,10 @@
+{% load djunk_filters %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert {{ message.tags|message_alert_class }}">
+        <a class="close" data-dismiss="alert">x</a>
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}

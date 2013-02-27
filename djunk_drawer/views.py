@@ -1,4 +1,9 @@
+import os
+from markdown import markdown
+
+from django.conf import settings
 from django.contrib import messages
+from django.core.exceptions import ImproperlyConfigured
 from django.views.generic import TemplateView
 
 
@@ -47,3 +52,32 @@ class FormMessagesMixin(object):
     def form_invalid(self, form):
         messages.error(self.request, self.get_error_message())
         return super(FormMessagesMixin, self).form_invalid(form)
+
+
+class MarkdownView(TemplateView):
+    """
+    A view that rendering markdown files as 'content' in context_data
+
+    Set settings.MARKDOWN_ROOT.
+
+    TODO: add caching.
+    """
+    template_name = 'markdown_view.html'
+    mkd_extensions = ['smartypants']
+    mkd_root = getattr(settings, 'MARKDOWN_ROOT', None)
+    filename = None  # "some-file.markdown" in settings.MARKDOWN_ROOT
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(MarkdownView, self).get_context_data(*args, **kwargs)
+
+        if not all((self.mkd_root, self.filename)):
+            raise ImproperlyConfigured('MarkdownViews require self.filename and settings.MARKDOWN_ROOT')
+
+        src = os.path.join(self.mkd_root, self.filename)
+        try:
+            with open(src, 'r') as f:
+                context['content'] = markdown(f.read(), extensions=self.mkd_extensions)
+        except IOError:
+            context['content'] = 'Missing Markdown file: {0}'.format(self.filename)
+
+        return context

@@ -9,6 +9,8 @@ setup(
     packages=['djunk_drawer'],
     install_requires=[
         "django >= 1.4",
+        "markdown",
+        "mdx-smartypants",
         "python-dateutil",
         "tablib",
     ],

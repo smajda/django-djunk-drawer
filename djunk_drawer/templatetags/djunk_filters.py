@@ -59,6 +59,11 @@ def default_base(url, url_base):
     return "{0}{1}".format(url_base, url)
 
 
+@register.filter(name="startswith")
+def startswith(path, initial):
+    return path.startswith(initial)
+
+
 @register.filter(name="active_url_class")
 def active_url_class(request, url_name):
     """

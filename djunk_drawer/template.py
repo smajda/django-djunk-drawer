@@ -1,3 +1,5 @@
+import hashlib
+
 from django.core.cache import cache
 from django.utils.http import urlquote
 

@@ -1,7 +1,7 @@
 import csv
 import re
 
-from collections import namedtuple, OrderedDict
+from collections import namedtuple
 
 
 def generate_rows(f):
@@ -13,7 +13,7 @@ def generate_rows(f):
     headers = tuple(re.sub(spaces, '', i) for i in next(f, tuple()))
     Row = namedtuple('Row', headers)
     for line in f:
-        yield Row(**OrderedDict(zip(headers, map(str.strip, line))))
+        yield Row(*(i.strip() for i in line))
 
 
 def generate_csv_rows(csv_path):

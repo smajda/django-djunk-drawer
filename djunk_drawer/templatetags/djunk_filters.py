@@ -60,8 +60,13 @@ def default_base(url, url_base):
 
 
 @register.filter(name="startswith")
-def startswith(path, initial):
-    return path.startswith(initial)
+def startswith(value, tests):
+    """
+    Does value start with any values in tests.split(',')
+
+    i.e. {% if request.path|startswith:'/foo,/bar' %}...
+    """
+    return any(value.startswith(i) for i in tests.split(','))
 
 
 @register.filter(name="active_url_class")

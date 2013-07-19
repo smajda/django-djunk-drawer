@@ -86,3 +86,8 @@ def active_url_class(request, url_name):
     except NoReverseMatch:
         return ""
     return " active" if request.path.startswith(url) else ""
+
+
+@register.filter(name="value_for_key")
+def value_for_key(dct, key):
+    return dct.get(key)

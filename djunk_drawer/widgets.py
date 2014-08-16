@@ -141,10 +141,11 @@ class ListFormField(forms.CharField):
 
 class BetterFileInput(forms.ClearableFileInput):
     """ Replacement ClearableFileInput whose output is easier to control via CSS. """
+    template_name = 'widgets/better_file_input.html'
 
     def __init__(self, attrs={}, *args, **kwargs):
         super(BetterFileInput, self).__init__(attrs)
 
     def render(self, name, value, attrs=None):
-        t = loader.get_template('widgets/better_file_input.html')
+        t = loader.get_template(self.template_name)
         return t.render(Context({'value': value, 'name': name, 'attrs': attrs}))
